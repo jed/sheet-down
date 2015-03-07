@@ -60,6 +60,8 @@ table.batch()
   })
 ```
 
+![screenshot](https://cloud.githubusercontent.com/assets/4433/6543812/447a0d92-c4fb-11e4-80e7-cf8ff1589dc3.png)
+
 [Google Spreadsheet]: https://docs.google.com/spreadsheets
 [abstract-leveldown]: https://github.com/rvagg/abstract-leveldown
 [levelup]: https://github.com/rvagg/node-levelup
