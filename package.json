@@ -1,7 +1,7 @@
 {
   "name": "sheetdown",
   "version": "1.0.0",
-  "description": "A Google Spreadsheet implementation of leveldown.",
+  "description": "A Google Spreadsheet implementation of leveldown",
   "author": "Jed Schmidt (http://jed.is)",
   "license": "MIT",
   "main": "dist",
