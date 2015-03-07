@@ -1,0 +1,22 @@
+{
+  "name": "sheetdown",
+  "version": "1.0.0",
+  "description": "A Google Spreadsheet implementation of leveldown.",
+  "author": "Jed Schmidt (http://jed.is)",
+  "license": "MIT",
+  "main": "dist",
+  "scripts": {
+    "build": "babel lib --out-dir dist",
+    "test": "babel-node test.js",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "abstract-leveldown": "^2.1.0",
+    "feedparser": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel": "^4.6.1",
+    "google-oauth-jwt-stream": "^1.0.1",
+    "levelup": "^0.19.0"
+  }
+}
