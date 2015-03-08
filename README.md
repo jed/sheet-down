@@ -7,7 +7,7 @@ SheetDOWN
 
 A [Google Spreadsheet][] implementation of [leveldown][].
 
-This library uses [abstract-leveldown][] to turn a worksheet within a Google Spreadsheet into a leveldown-compatible store for use with [levelup][]. It was built to provide a convenient and familiar UI for two use cases:
+This library uses [abstract-leveldown][] to turn a worksheet within a Google Spreadsheet into a [leveldown][]-compatible store for use with [levelup][]. It was built to provide a convenient and familiar UI for two use cases:
 
 1. **As a write-only store**, to enable simple data entry without having to create or maintain a custom CRUD app with its own authentication/authorization.
 2. **As a read-only view** of an upstream data store, with built in sort and filter functionality.
