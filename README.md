@@ -14,7 +14,7 @@ A row-based interface is coming soon, but currently only a cell-based interface 
 Installation
 ------------
 
-    npm install sheetdown
+    npm install sheet-down
 
 Example
 -------
@@ -23,8 +23,8 @@ Example
 import fs from "fs"
 import levelup from "levelup"
 import {Token} from "google-oauth-jwt-stream"
-import {CellDOWN} from "sheetdown"
-import keyEncoding from "sheetdown/dist/cell/keyEncoding"
+import {CellDOWN} from "sheet-down"
+import keyEncoding from "sheet-down/dist/cell/keyEncoding"
 
 let email = "xxx...xxx@developer.gserviceaccount.com"
 let key = fs.readFileSync("./key.pem")
