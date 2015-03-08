@@ -3,6 +3,8 @@ SheetDOWN
 
 *STATUS: USE AT YOUR OWN RISK*
 
+[![Build Status](https://travis-ci.org/jed/sheet-down.svg)](https://travis-ci.org/jed/sheet-down)
+
 A [Google Spreadsheet][] implementation of [leveldown][].
 
 This library uses [abstract-leveldown][] to turn a worksheet within a Google Spreadsheet into a leveldown-compatible store for use with [levelup][].
