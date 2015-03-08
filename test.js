@@ -28,6 +28,8 @@ table.batch()
   .put([3, 2], "@brianloveswords")
   .put([3, 3], mtime)
   .write(err => {
+    if (err) throw err
+
     let ws = concat(cells => deepEqual(cells, [
       {key: [1, 1], value: "name"             },
       {key: [1, 2], value: "github handle"    },
