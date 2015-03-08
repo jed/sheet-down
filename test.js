@@ -11,7 +11,7 @@ let email = "91515745676-4gfajos94ps431fm229noqp5rg6hc4og@developer.gserviceacco
 let scopes = ["https://spreadsheets.google.com/feeds"]
 let token = new Token(email, key, scopes)
 
-let location = "1QuqgvEo-fk62heKg3tXCHXC-L_ZcJvOWsYEgOVuxUAU/od6"
+let location = "1ae-WBL86c4wEUB5fEbsW9G1Y6D7FKnX6IvNmpVCv79M/od6"
 let db = new CellDOWN(token)
 
 let table = levelup(location, {db, keyEncoding})
