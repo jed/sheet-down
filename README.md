@@ -21,6 +21,11 @@ Installation
 
     npm install sheet-down
 
+Setup
+-----
+
+Follow [these steps](SETUP.md) to create and share a spreadsheet that this library can access, and get its spreadsheet and worksheet IDs.
+
 Example
 -------
 
