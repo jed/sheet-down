@@ -19,6 +19,6 @@ Setting up a Google Spreadsheet for SheetDOWN
 
 6. Get the ID of the worksheet within the spreadsheet. If your spreadsheet only has the default `Sheet1` worksheet, the worksheet ID is `od6`. Otherwise, you'll need to open the following file and see if you can find the appropriate worksheet by name:
 
-    https://spreadsheets.google.com/feeds/worksheets/<spreadsheet-id>/private/full
+`https://spreadsheets.google.com/feeds/worksheets/<spreadsheet-id>/private/full`
 
 7. Concatenate the spreadsheet ID from step 5 and the worksheet ID from step 6 with `/` as a separator to get the location used for SheetDOWN.
