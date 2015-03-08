@@ -21,6 +21,13 @@ Installation
 
     npm install sheet-down
 
+Setup
+-----
+
+1. Follow [these steps](https://github.com/jed/google-oauth-jwt-stream/blob/master/SETUP.md) to get the email and key needed to create tokens.
+
+2. Follow [these steps](SETUP.md) to create and share a spreadsheet that this library can access, and get its spreadsheet and worksheet IDs.
+
 Example
 -------
 
