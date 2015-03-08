@@ -6,8 +6,8 @@ import concat from "concat-stream"
 import {CellDOWN} from "./lib"
 import keyEncoding from "./lib/cell/keyEncoding"
 
-let email = process.env.GOOGLE_OAUTH_EMAIL
 let key = Buffer(process.env.GOOGLE_OAUTH_KEY, "base64")
+let email = "91515745676-4gfajos94ps431fm229noqp5rg6hc4og@developer.gserviceaccount.com"
 let scopes = ["https://spreadsheets.google.com/feeds"]
 let token = new Token(email, key, scopes)
 
