@@ -14,8 +14,8 @@ let token = new Token(email, key, scopes)
 let location = "1ae-WBL86c4wEUB5fEbsW9G1Y6D7FKnX6IvNmpVCv79M/od6"
 let db = new CellDOWN(token)
 
-let table = levelup(location, {db, keyEncoding})
-let mtime = Date.now().toString()
+let table = levelup(location, {db, keyEncoding, valueEncoding: "json"})
+let mtime = new Date().toString()
 
 table.batch()
   .put([1, 1], "name")
