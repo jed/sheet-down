@@ -16,6 +16,8 @@ Keep in mind that there are some differences between LevelDB and Google Spreadsh
 
 A row-based interface is coming soon, but currently only a cell-based interface is provided. Each cell is addressed by a compound `[row, column]` key, encoded as a 4-byte buffer of two `UInt16BE`s, but this encoding can be handled transparently using the included `keyEncoding`, as shown in the following example.
 
+Currently only [io.js][] has been tested.
+
 Installation
 ------------
 
@@ -76,3 +78,4 @@ table.batch()
 [abstract-leveldown]: https://github.com/rvagg/abstract-leveldown
 [levelup]: https://github.com/rvagg/node-levelup
 [leveldown]: https://github.com/rvagg/node-leveldown
+[io.js]: https://iojs.org
