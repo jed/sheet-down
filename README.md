@@ -1,7 +1,5 @@
-SheetDOWN
-=========
-
-*STATUS: USE AT YOUR OWN RISK*
+sheet-down
+==========
 
 [![Build Status](https://travis-ci.org/jed/sheet-down.svg)](https://travis-ci.org/jed/sheet-down)
 
@@ -14,19 +12,7 @@ This library uses [abstract-leveldown][] to turn a worksheet within a Google Spr
 
 Keep in mind that there are some differences between LevelDB and Google Spreadsheets. For example, unlike LevelDB, Google Spreadsheets does not guarantee batch write atomicity, and does not snapshot reads.
 
-A row-based interface is coming soon, but currently only a cell-based interface is provided. Each cell is addressed by a compound `[row, column]` key, encoded as a 4-byte buffer of two `UInt16BE`s, but this encoding can be handled transparently using the included `keyEncoding`, as shown in the following example.
-
 Currently only [io.js][] has been tested.
-
-Installation
-------------
-
-    npm install sheet-down
-
-Setup
------
-
-Follow [these steps](SETUP.md) to create and share a spreadsheet that this library can access, and get its spreadsheet and worksheet IDs.
 
 Example
 -------
@@ -36,7 +22,6 @@ import fs from "fs"
 import levelup from "levelup"
 import {Token} from "google-oauth-jwt-stream"
 import {CellDOWN} from "sheet-down"
-import keyEncoding from "sheet-down/dist/cell/keyEncoding"
 
 let email = "xxx...xxx@developer.gserviceaccount.com"
 let key = fs.readFileSync("./key.pem")
@@ -44,9 +29,7 @@ let scopes = ["https://spreadsheets.google.com/feeds"]
 let token = new Token(email, key, scopes)
 
 let location = "<spreadsheet-id>/<worksheet-id>"
-let db = new CellDOWN(token)
-
-let table = levelup(location, {db, keyEncoding})
+let table = levelup(location, new CellDOWN({token}))
 
 table.batch()
   // put header row
@@ -74,6 +57,35 @@ table.batch()
 
 ![screenshot](https://cloud.githubusercontent.com/assets/4433/6543812/447a0d92-c4fb-11e4-80e7-cf8ff1589dc3.png)
 
+Installation
+------------
+
+    npm install sheet-down
+
+Setup
+-----
+
+Follow [these steps](SETUP.md) to create and share a spreadsheet that this library can access, and get its spreadsheet and worksheet IDs.
+
+API
+---
+
+### import {CellDOWN, RowDOWN} from "sheet-down"
+
+This backend provides two interfaces, for each cells and rows. Each of these constructors take an object whose `token` property is an instance of [google-oauth-jwt-stream][], and return an object whose `db`, `keyEncoding`, and `valueEncoding` properties match those accepted by [levelup][].
+
+### let cells = levelup("spreadsheetId/worksheetId", CellDOWN({token}))
+
+This creates a backend that operates on a Google worksheet by cell. Each key is an 8-byte buffer of two [UInt32BE][]s that specify the row number and column number, and each value is a utf-8 string. Unless otherwise specified, cell keys are transparently converted from integer arrays by the provided `keyEncoding`.
+
+### let rows = levelup("spreadsheetId/worksheetId", RowDOWN({token}))
+
+This creates a backend that operates on a Google worksheet by row. Each key is a 4-byte [UInt32BE][] that specifies the row number, and each value is a JSON-encoded string. Unless otherwise specified, cell keys are transparently converted from integers by the provided `keyEncoding`.
+
+This backend is built on top of the cell interface by using the first row of the worksheet as a schema, grouping all cells in a given row into an array, and then using the schema keys to replace the column numbers.
+
+[UInt32BE]: https://iojs.org/api/buffer.html#buffer_buf_readuint32be_offset_noassert
+[google-oauth-jwt-stream]: https://github.com/jed/google-oauth-jwt-stream
 [Google Spreadsheet]: https://docs.google.com/spreadsheets
 [abstract-leveldown]: https://github.com/rvagg/abstract-leveldown
 [levelup]: https://github.com/rvagg/node-levelup
