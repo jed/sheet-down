@@ -82,7 +82,7 @@ This creates a backend that operates on a Google worksheet by cell. Each key is 
 
 This creates a backend that operates on a Google worksheet by row. Each key is a 4-byte [UInt32BE][] that specifies the row number, and each value is a JSON-encoded string. Unless otherwise specified, cell keys are transparently converted from integers by the provided `keyEncoding`.
 
-This backend is built on top of the cell interface by using the first row of the worksheet as a schema, grouping all cells in a given row into an array, and then using the schema keys to replace the column numbers.
+This backend is built on top of the cell interface by using the first row of the worksheet as a schema, grouping all cells in a given row into an array, and then using the schema keys to replace the column numbers with property names.
 
 [UInt32BE]: https://iojs.org/api/buffer.html#buffer_buf_readuint32be_offset_noassert
 [google-oauth-jwt-stream]: https://github.com/jed/google-oauth-jwt-stream
