@@ -3,21 +3,21 @@ import {deepEqual} from "assert"
 import levelup from "levelup"
 import {Token} from "google-oauth-jwt-stream"
 import concat from "concat-stream"
-import {CellDOWN} from "./lib"
-import keyEncoding from "./lib/cell/keyEncoding"
+import {CellDOWN, RowDOWN} from "./sheet-down"
 
+// let key = fs.readFileSync("./key.pem")
 let key = Buffer(process.env.GOOGLE_OAUTH_KEY, "base64")
 let email = "91515745676-4gfajos94ps431fm229noqp5rg6hc4og@developer.gserviceaccount.com"
 let scopes = ["https://spreadsheets.google.com/feeds"]
 let token = new Token(email, key, scopes)
 
 let location = "1ae-WBL86c4wEUB5fEbsW9G1Y6D7FKnX6IvNmpVCv79M/od6"
-let db = new CellDOWN(token)
+let cells = levelup(location, new CellDOWN({token}))
+let rows = levelup(location, new RowDOWN({token}))
 
-let table = levelup(location, {db, keyEncoding, valueEncoding: "json"})
 let mtime = new Date().toString()
 
-table.batch()
+cells.batch()
   .put([1, 1], "name")
   .put([1, 2], "github handle")
   .put([1, 3], "mtime")
@@ -30,7 +30,7 @@ table.batch()
   .write(err => {
     if (err) throw err
 
-    let ws = concat(cells => deepEqual(cells, [
+    let oncells = data => deepEqual(data, [
       {key: [1, 1], value: "name"             },
       {key: [1, 2], value: "github handle"    },
       {key: [1, 3], value: "mtime"            },
@@ -40,7 +40,13 @@ table.batch()
       {key: [3, 1], value: "Brian J. Brennan" },
       {key: [3, 2], value: "@brianloveswords" },
       {key: [3, 3], value: mtime              }
-    ]))
+    ])
 
-    table.createReadStream().pipe(ws)
+    let onrows = data => deepEqual(data, [
+      {key: 2, value: {"name": "Jed Schmidt"     , "github handle": "@jed"            , "mtime": mtime}},
+      {key: 3, value: {"name": "Brian J. Brennan", "github handle": "@brianloveswords", "mtime": mtime}}
+    ])
+
+    cells.createReadStream().pipe(concat(oncells))
+    rows.createReadStream().pipe(concat(onrows))
   })
