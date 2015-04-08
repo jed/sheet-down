@@ -50,6 +50,8 @@ cells.batch()
       {key: 3, value: {"name": "Brian J. Brennan", "github handle": "@brianloveswords", "mtime": mtime}}
     ])
 
-    cells.createReadStream().pipe(concat(oncells))
-    rows.createReadStream().pipe(concat(onrows))
+    setTimeout(() => {
+      cells.createReadStream().pipe(concat(oncells))
+      rows.createReadStream().pipe(concat(onrows))
+    }, 2500)
   })
