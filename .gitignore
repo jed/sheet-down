@@ -3,3 +3,7 @@ node_modules
 key.pem
 
 index.js
+
+email.txt
+
+key.pem.base64

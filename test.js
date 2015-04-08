@@ -5,12 +5,15 @@ import {Token} from "google-oauth-jwt-stream"
 import concat from "concat-stream"
 import {CellDOWN, RowDOWN} from "./sheet-down"
 
-let key
+let key = Buffer(
+  process.env.GOOGLE_OAUTH_KEY ||
+  fs.readFileSync("./key.pem.base64", "utf8")
+, "base64")
 
-try { key = Buffer(process.env.GOOGLE_OAUTH_KEY, "base64") }
-catch (e) { key = fs.readFileSync("./key.pem") }
+let email =
+  process.env.GOOGLE_OAUTH_EMAIL ||
+  fs.readFileSync("./email.txt", "utf8").trim()
 
-let email = "91515745676-4gfajos94ps431fm229noqp5rg6hc4og@developer.gserviceaccount.com"
 let scopes = ["https://spreadsheets.google.com/feeds"]
 let token = new Token(email, key, scopes)
 
