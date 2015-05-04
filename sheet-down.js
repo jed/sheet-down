@@ -53,21 +53,20 @@ class DOWN extends LevelDOWN {
     if (lt) maxRow = keyEncoding.decode(lt.slice(0, 4)) - 1
 
     let rs = this._source.createReadStream({minRow, maxRow})
-    let t = new Transform({
-      objectMode: true,
-      transform({key, value}, enc, cb) {
-        if (limit) {
-          limit--
+    let t = new Transform({objectMode: true})
 
-          key = keyEncoding.encode(key)
-          value = valueEncoding.encode(value)
+    t._transform = function({key, value}, enc, cb) {
+      if (limit) {
+        limit--
 
-          this.push({key, value})
-        }
+        key = keyEncoding.encode(key)
+        value = valueEncoding.encode(value)
 
-        cb()
+        this.push({key, value})
       }
-    })
+
+      cb()
+    }
 
     return rs.pipe(t)
   }
@@ -75,17 +74,16 @@ class DOWN extends LevelDOWN {
   _createWriteStream(options) {
     let {valueEncoding} = this
     let ws = this._source.createWriteStream()
-    let t = new Transform({
-      objectMode: true,
-      transform({key, value}, enc, cb) {
-        key = keyEncoding.decode(key)
-        if (value) value = valueEncoding.decode(value)
+    let t = new Transform({objectMode: true})
 
-        this.push({key, value})
+    t._transform = function({key, value}, enc, cb) {
+      key = keyEncoding.decode(key)
+      if (value) value = valueEncoding.decode(value)
 
-        cb()
-      }
-    })
+      this.push({key, value})
+
+      cb()
+    }
 
     t.pipe(ws)
     return t
