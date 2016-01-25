@@ -1,6 +1,6 @@
 import {Transform} from "stream"
 import Worksheet from "google-worksheet-stream"
-import {LevelDOWN} from "abstract-stream-leveldown"
+import {AbstractStreamLevelDOWN as LevelDOWN} from "abstract-stream-leveldown"
 
 const keyEncoding = {
   name: "UInt32BE",
